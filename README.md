@@ -16,12 +16,20 @@ This scenario automates lead enrichment and management by integrating email veri
 6. Wait for the import to complete — all modules and connections will appear.
 
 **Setup**
-1. Connect your accounts
-Go through each module (HTTP, Airtable, Google Sheets, etc.) and connect your respective accounts.
-Add API keys for email verification, Clearbit/Hunter, or other enrichment services.
+1. Connect your accounts:
+- Go through each module (HTTP, Airtable, Google Sheets, etc.) and connect your respective accounts.
+- Add API keys for email verification, Clearbit/Hunter, or other enrichment services.
 
-2. Configure webhooks (if any)
-For modules triggered by forms or other services, copy the webhook URL from the scenario.
-Paste it in the source service (e.g., Typeform form settings, website form, LinkedIn automation).
+2. Configure webhooks :
+- For modules triggered by forms or other services, copy the webhook URL from the scenario.
+- Paste it in the source service (e.g., Typeform form settings, website form, LinkedIn automation).
+3. Scheduler:
+- for daily report scenario add a scheduler for timing on which you want to send daily summary.
+
+Main Workflow:
+<img width="1493" height="694" alt="image" src="https://github.com/user-attachments/assets/e92083aa-3e13-4546-aca1-d35117770713" />
+
+Daily Report Workflow:
+<img width="1334" height="527" alt="image" src="https://github.com/user-attachments/assets/12ffbe54-ac45-497f-b5b4-6aa3077726ef" />
 
 
