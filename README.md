@@ -32,4 +32,9 @@ Main Workflow:
 Daily Report Workflow:
 <img width="1334" height="527" alt="image" src="https://github.com/user-attachments/assets/12ffbe54-ac45-497f-b5b4-6aa3077726ef" />
 
+Source modules :
+<img width="638" height="357" alt="image" src="https://github.com/user-attachments/assets/30e14b41-12cb-4499-b62d-108ea6de5c6e" /> <img width="587" height="319" alt="image" src="https://github.com/user-attachments/assets/0741ad5a-a734-4715-bd63-0c5c4542c9de" /> <img width="761" height="375" alt="image" src="https://github.com/user-attachments/assets/84c6fb86-9536-40cf-9f5f-5739fd413d4f" /> <img width="680" height="322" alt="image" src="https://github.com/user-attachments/assets/82806b88-c78a-42a3-802a-267c9909c2f6" />
+
+
+
 
