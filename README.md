@@ -21,7 +21,7 @@ This scenario automates lead enrichment and management by integrating email veri
 - Add API keys for email verification, Clearbit/Hunter, or other enrichment services.
 
 2. Configure webhooks :
-- For modules triggered by forms or other services, copy the webhook URL from the scenario.
+- For modules triggered by forms or other services, copy the webhook URL from the main scenario (Intelligent lead management system).
 - Paste it in the source service (e.g., Typeform form settings, website form, LinkedIn automation).
 3. Scheduler:
 - for daily report scenario add a scheduler for timing on which you want to send daily summary.
