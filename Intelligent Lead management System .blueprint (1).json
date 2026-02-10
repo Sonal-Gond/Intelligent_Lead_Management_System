@@ -1,0 +1,3091 @@
+{
+    "name": "Intelligent Lead management System ",
+    "flow": [
+        {
+            "id": 9,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 2449462,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": -4795,
+                    "y": -1365
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "lead Website webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 16,
+            "module": "http:MakeRequest",
+            "version": 4,
+            "parameters": {
+                "tlsType": "",
+                "proxyKeychain": "",
+                "authenticationType": "noAuth"
+            },
+            "mapper": {
+                "url": "https://api.hunter.io/v2/email-verifier?email={{9.Email}}&api_key=d12de966f3eb2eb32ede7d96e5700918c4a66eb4",
+                "method": "get",
+                "shareCookies": false,
+                "parseResponse": true,
+                "allowRedirects": true,
+                "stopOnHttpError": true,
+                "requestCompressedContent": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": -4684,
+                    "y": -827
+                },
+                "restore": {
+                    "expect": {
+                        "method": {
+                            "mode": "chose",
+                            "label": "GET"
+                        },
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "contentType": {
+                            "label": "Empty"
+                        },
+                        "shareCookies": {
+                            "mode": "chose"
+                        },
+                        "parseResponse": {
+                            "mode": "chose"
+                        },
+                        "allowRedirects": {
+                            "mode": "chose"
+                        },
+                        "paginationType": {
+                            "label": "Empty"
+                        },
+                        "queryParameters": {
+                            "mode": "chose"
+                        },
+                        "stopOnHttpError": {
+                            "mode": "chose"
+                        },
+                        "requestCompressedContent": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "tlsType": {
+                            "label": "Empty"
+                        },
+                        "proxyKeychain": {
+                            "label": "Choose a key"
+                        },
+                        "authenticationType": {
+                            "label": "No authenticationUse when no credentials are required for the request."
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "authenticationType",
+                        "type": "select",
+                        "label": "Authentication type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "noAuth",
+                                "apiKey",
+                                "basicAuth",
+                                "oAuth"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tlsType",
+                        "type": "select",
+                        "label": "Transport layer security (TLS)",
+                        "validate": {
+                            "enum": [
+                                "mTls",
+                                "tls"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "proxyKeychain",
+                        "type": "keychain:proxy",
+                        "label": "Proxy"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true,
+                                    "validate": {
+                                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                                    }
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Header"
+                        },
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "queryParameters",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Parameter"
+                        },
+                        "type": "array",
+                        "label": "Query parameters"
+                    },
+                    {
+                        "name": "contentType",
+                        "type": "select",
+                        "label": "Body content type",
+                        "validate": {
+                            "enum": [
+                                "json",
+                                "multipart",
+                                "urlEncoded",
+                                "custom"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "stopOnHttpError",
+                        "type": "boolean",
+                        "label": "Return error if HTTP request fails",
+                        "required": true
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "allowRedirects",
+                        "type": "boolean",
+                        "label": "Allow redirects",
+                        "required": true
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "requestCompressedContent",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "paginationType",
+                        "type": "select",
+                        "label": "Pagination type",
+                        "validate": {
+                            "enum": [
+                                "offsetBased",
+                                "pageBased",
+                                "urlBased",
+                                "tokenBased"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "data",
+                        "type": "any",
+                        "label": "Data"
+                    },
+                    {
+                        "name": "statusCode",
+                        "type": "number",
+                        "label": "Status Code"
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "content-length",
+                                "type": "text",
+                                "label": "Content-Length"
+                            },
+                            {
+                                "name": "content-encoding",
+                                "type": "text",
+                                "label": "Content-Encoding"
+                            },
+                            {
+                                "name": "content-type",
+                                "type": "text",
+                                "label": "Content-Type"
+                            },
+                            {
+                                "name": "server",
+                                "type": "text",
+                                "label": "Server"
+                            },
+                            {
+                                "name": "cache-control",
+                                "type": "text",
+                                "label": "Cache-Control"
+                            },
+                            {
+                                "name": "set-cookie",
+                                "spec": {
+                                    "type": "text"
+                                },
+                                "type": "array",
+                                "label": "Set-Cookie"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Headers"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 15,
+            "module": "http:MakeRequest",
+            "version": 4,
+            "parameters": {
+                "tlsType": "",
+                "proxyKeychain": "",
+                "authenticationType": "noAuth"
+            },
+            "mapper": {
+                "url": "https://api.hunter.io/v2/combined/find?email={{16.data.data.email}}&api_key=d12de966f3eb2eb32ede7d96e5700918c4a66eb4",
+                "method": "get",
+                "shareCookies": false,
+                "parseResponse": true,
+                "allowRedirects": true,
+                "stopOnHttpError": true,
+                "requestCompressedContent": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": -4514,
+                    "y": -1293
+                },
+                "restore": {
+                    "expect": {
+                        "method": {
+                            "mode": "chose",
+                            "label": "GET"
+                        },
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "contentType": {
+                            "label": "Empty"
+                        },
+                        "shareCookies": {
+                            "mode": "chose"
+                        },
+                        "parseResponse": {
+                            "mode": "chose"
+                        },
+                        "allowRedirects": {
+                            "mode": "chose"
+                        },
+                        "paginationType": {
+                            "label": "Empty"
+                        },
+                        "queryParameters": {
+                            "mode": "chose"
+                        },
+                        "stopOnHttpError": {
+                            "mode": "chose"
+                        },
+                        "requestCompressedContent": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "tlsType": {
+                            "label": "Empty"
+                        },
+                        "proxyKeychain": {
+                            "label": "Choose a key"
+                        },
+                        "authenticationType": {
+                            "label": "No authenticationUse when no credentials are required for the request."
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "authenticationType",
+                        "type": "select",
+                        "label": "Authentication type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "noAuth",
+                                "apiKey",
+                                "basicAuth",
+                                "oAuth"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tlsType",
+                        "type": "select",
+                        "label": "Transport layer security (TLS)",
+                        "validate": {
+                            "enum": [
+                                "mTls",
+                                "tls"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "proxyKeychain",
+                        "type": "keychain:proxy",
+                        "label": "Proxy"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true,
+                                    "validate": {
+                                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                                    }
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Header"
+                        },
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "queryParameters",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Parameter"
+                        },
+                        "type": "array",
+                        "label": "Query parameters"
+                    },
+                    {
+                        "name": "contentType",
+                        "type": "select",
+                        "label": "Body content type",
+                        "validate": {
+                            "enum": [
+                                "json",
+                                "multipart",
+                                "urlEncoded",
+                                "custom"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "stopOnHttpError",
+                        "type": "boolean",
+                        "label": "Return error if HTTP request fails",
+                        "required": true
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "allowRedirects",
+                        "type": "boolean",
+                        "label": "Allow redirects",
+                        "required": true
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "requestCompressedContent",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "paginationType",
+                        "type": "select",
+                        "label": "Pagination type",
+                        "validate": {
+                            "enum": [
+                                "offsetBased",
+                                "pageBased",
+                                "urlBased",
+                                "tokenBased"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "data",
+                        "type": "any",
+                        "label": "Data"
+                    },
+                    {
+                        "name": "statusCode",
+                        "type": "number",
+                        "label": "Status Code"
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "content-length",
+                                "type": "text",
+                                "label": "Content-Length"
+                            },
+                            {
+                                "name": "content-encoding",
+                                "type": "text",
+                                "label": "Content-Encoding"
+                            },
+                            {
+                                "name": "content-type",
+                                "type": "text",
+                                "label": "Content-Type"
+                            },
+                            {
+                                "name": "server",
+                                "type": "text",
+                                "label": "Server"
+                            },
+                            {
+                                "name": "cache-control",
+                                "type": "text",
+                                "label": "Cache-Control"
+                            },
+                            {
+                                "name": "set-cookie",
+                                "spec": {
+                                    "type": "text"
+                                },
+                                "type": "array",
+                                "label": "Set-Cookie"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Headers"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 14,
+            "module": "util:SetVariables",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "scope": "roundtrip",
+                "variables": [
+                    {
+                        "name": "Email",
+                        "value": "{{15.data.data.person.email}}"
+                    },
+                    {
+                        "name": "Status",
+                        "value": "{{16.data.data.status}}"
+                    },
+                    {
+                        "name": "Score",
+                        "value": "{{16.data.data.score}}"
+                    },
+                    {
+                        "name": "Result",
+                        "value": "{{16.data.data.result}}"
+                    },
+                    {
+                        "name": "Company Industry",
+                        "value": "{{15.data.data.company.category.industry}}"
+                    },
+                    {
+                        "name": "Company Size",
+                        "value": "{{15.data.data.company.metrics.employees}}"
+                    },
+                    {
+                        "name": "Job title",
+                        "value": "{{15.data.data.person.employment.title}}"
+                    },
+                    {
+                        "name": "Company Sector",
+                        "value": "{{15.data.data.company.category.sector}}"
+                    },
+                    {
+                        "name": "Company Name",
+                        "value": "{{15.data.data.company.name}}"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": -4040,
+                    "y": -1417
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        },
+                        "variables": {
+                            "items": [
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "variables",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Variable name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "any",
+                                "label": "Variable value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Variables"
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "Email",
+                        "type": "any",
+                        "label": "Email"
+                    },
+                    {
+                        "name": "Status",
+                        "type": "any",
+                        "label": "Status"
+                    },
+                    {
+                        "name": "Score",
+                        "type": "any",
+                        "label": "Score"
+                    },
+                    {
+                        "name": "Result",
+                        "type": "any",
+                        "label": "Result"
+                    },
+                    {
+                        "name": "Company Industry",
+                        "type": "any",
+                        "label": "Company Industry"
+                    },
+                    {
+                        "name": "Company Size",
+                        "type": "any",
+                        "label": "Company Size"
+                    },
+                    {
+                        "name": "Job title",
+                        "type": "any",
+                        "label": "Job title"
+                    },
+                    {
+                        "name": "Company Sector",
+                        "type": "any",
+                        "label": "Company Sector"
+                    },
+                    {
+                        "name": "Company Name",
+                        "type": "any",
+                        "label": "Company Name"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 34,
+            "module": "util:SetVariable2",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "name": "Company_size",
+                "scope": "roundtrip",
+                "value": "{{if(contains(14.`Company Size`; \"-\"); average(if(contains(substring(14.`Company Size`; 0; indexOf(14.`Company Size`; \"-\")); \"K\"); parseNumber(replace(substring(14.`Company Size`; 0; indexOf(14.`Company Size`; \"-\")); \"K\"; \"\")) * 1000; if(contains(substring(14.`Company Size`; 0; indexOf(14.`Company Size`; \"-\")); \"M\"); parseNumber(replace(substring(14.`Company Size`; 0; indexOf(14.`Company Size`; \"-\")); \"M\"; \"\")) * 1000000; parseNumber(substring(14.`Company Size`; 0; indexOf(14.`Company Size`; \"-\"))))); if(contains(substring(14.`Company Size`; indexOf(14.`Company Size`; \"-\") + 1; length(14.`Company Size`)); \"K\"); parseNumber(replace(substring(14.`Company Size`; indexOf(14.`Company Size`; \"-\") + 1; length(14.`Company Size`)); \"K\"; \"\")) * 1000; if(contains(substring(14.`Company Size`; indexOf(14.`Company Size`; \"-\") + 1; length(14.`Company Size`)); \"M\"); parseNumber(replace(substring(14.`Company Size`; indexOf(14.`Company Size`; \"-\") + 1; length(14.`Company Size`)); \"M\"; \"\")) * 1000000; parseNumber(substring(14.`Company Size`; indexOf(14.`Company Size`; \"-\") + 1; length(14.`Company Size`)))))); if(contains(14.`Company Size`; \"K\"); parseNumber(replace(14.`Company Size`; \"K\"; \"\")) * 1000; if(contains(14.`Company Size`; \"M\"); parseNumber(replace(14.`Company Size`; \"M\"; \"\")) * 1000000; parseNumber(14.`Company Size`))))}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": -3966,
+                    "y": -966
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "name",
+                        "type": "text",
+                        "label": "Variable name",
+                        "required": true
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "type": "any",
+                        "label": "Variable value"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "Company_size",
+                        "type": "any",
+                        "label": "Company_size"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 52,
+            "module": "util:SetVariables",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "variables": [
+                    {
+                        "name": "company_size_score",
+                        "value": "{{if(34.Company_size >= 10000; 40; if(34.Company_size >= 5000; 30; if(34.Company_size >= 500; 20; if(34.Company_size >= 100; 10; 5))))}}"
+                    },
+                    {
+                        "name": "Job_title_score",
+                        "value": "{{if(contains(lower(14.`Job title`); \"ceo\") | contains(lower(14.`Job title`); \"founder\") | contains(lower(14.`Job title`); \"owner\"); 40; if(contains(lower(14.`Job title`); \"cto\") | contains(lower(14.`Job title`); \"cfo\") | contains(lower(14.`Job title`); \"vp\") | contains(lower(14.`Job title`); \"head\"); 30; if(contains(lower(14.`Job title`); \"manager\") | contains(lower(14.`Job title`); \"lead\"); 20; if(contains(lower(14.`Job title`); \"executive\") | contains(lower(14.`Job title`); \"analyst\"); 10; 5))))}}"
+                    },
+                    {
+                        "name": "Industry",
+                        "value": "{{if(contains(lower(14.`Company Industry`); \"saas\") | contains(lower(14.`Company Industry`); \"software\") | contains(lower(14.`Company Industry`); \"it\") | contains(lower(14.`Company Industry`); \"ai\"); 20; if(contains(lower(14.`Company Industry`); \"ecommerce\") | contains(lower(14.`Company Industry`); \"fintech\"); 15; if(contains(lower(14.`Company Industry`); \"marketing\") | contains(lower(14.`Company Industry`); \"agency\") | contains(lower(14.`Company Industry`); \"consult\"); 10; 5)))}}"
+                    }
+                ],
+                "scope": "roundtrip"
+            },
+            "metadata": {
+                "designer": {
+                    "x": -3600,
+                    "y": -1053
+                },
+                "restore": {
+                    "expect": {
+                        "variables": {
+                            "items": [
+                                null,
+                                null,
+                                null
+                            ]
+                        },
+                        "scope": {
+                            "label": "One cycle"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "variables",
+                        "type": "array",
+                        "label": "Variables",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "label": "Variable name",
+                                "type": "text",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "label": "Variable value",
+                                "type": "any"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "company_size_score",
+                        "label": "company_size_score",
+                        "type": "any"
+                    },
+                    {
+                        "name": "Job_title_score",
+                        "label": "Job_title_score",
+                        "type": "any"
+                    },
+                    {
+                        "name": "Industry",
+                        "label": "Industry",
+                        "type": "any"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 53,
+            "module": "util:SetVariable2",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "name": "LeadScore",
+                "scope": "roundtrip",
+                "value": "{{52.company_size_score + 52.Job_title_score + 52.Industry}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": -3158,
+                    "y": -1375
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "name",
+                        "type": "text",
+                        "label": "Variable name",
+                        "required": true
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "type": "any",
+                        "label": "Variable value"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "LeadScore",
+                        "type": "any",
+                        "label": "LeadScore"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 17,
+            "module": "airtable:ActionCreateRecord",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 5108787
+            },
+            "mapper": {
+                "base": "app4FmWnz4cyFK1zZ",
+                "table": "tblBiTem1L6QO99OD",
+                "record": {
+                    "fld3fk0hI1CioYFRH": "{{34.Company_size}}",
+                    "fldG69SyKXX7yRt6Y": "{{9.`Contact Number`}}",
+                    "fldHRmrOalrd7xz8t": "{{14.Status}}",
+                    "fldQqvaWd4V7usJ82": "{{9.`Full Name`}}",
+                    "fldSReQ9stZEnOKkp": "{{15.data.data.company.geo.country}}",
+                    "fldTGaqfdpnHYv6eo": "{{14.Email}}",
+                    "flda9ZRO7HD11uyrS": "{{9.Source}}",
+                    "fldnYelCaHtdV1Z6I": "{{14.`Company Industry`}}",
+                    "fldqmD4BEqxPGmXOt": "{{14.`Company Name`}}",
+                    "fldr6uFJNAhiN6eoE": "{{14.`Job title`}}",
+                    "fldsqWahZnSBRUFJQ": "{{53.LeadScore}}"
+                },
+                "typecast": false,
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": -3093,
+                    "y": -676
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "label": "Lead Information"
+                        },
+                        "table": {
+                            "label": "Lead_Data",
+                            "nested": [
+                                {
+                                    "name": "record",
+                                    "spec": [
+                                        {
+                                            "name": "fldQqvaWd4V7usJ82",
+                                            "type": "text",
+                                            "label": "Employee Name"
+                                        },
+                                        {
+                                            "name": "fldr6uFJNAhiN6eoE",
+                                            "type": "text",
+                                            "label": "Job title"
+                                        },
+                                        {
+                                            "name": "fldTGaqfdpnHYv6eo",
+                                            "type": "text",
+                                            "label": "Email"
+                                        },
+                                        {
+                                            "name": "fldHRmrOalrd7xz8t",
+                                            "type": "text",
+                                            "label": "Email Status"
+                                        },
+                                        {
+                                            "name": "fldG69SyKXX7yRt6Y",
+                                            "type": "text",
+                                            "label": "Contact Number"
+                                        },
+                                        {
+                                            "name": "fldqmD4BEqxPGmXOt",
+                                            "type": "text",
+                                            "label": "Company Name"
+                                        },
+                                        {
+                                            "name": "fld3fk0hI1CioYFRH",
+                                            "type": "number",
+                                            "label": "Company Size"
+                                        },
+                                        {
+                                            "name": "fldnYelCaHtdV1Z6I",
+                                            "type": "text",
+                                            "label": "Industry"
+                                        },
+                                        {
+                                            "name": "fldSReQ9stZEnOKkp",
+                                            "type": "text",
+                                            "label": "Country"
+                                        },
+                                        {
+                                            "name": "fldzZB6lLnbI90Tew",
+                                            "type": "text",
+                                            "label": "Sales Representative"
+                                        },
+                                        {
+                                            "name": "fldsqWahZnSBRUFJQ",
+                                            "type": "number",
+                                            "label": "Lead Score"
+                                        },
+                                        {
+                                            "name": "fldkR68DWarM5bN55",
+                                            "type": "text",
+                                            "label": "Lead Status"
+                                        },
+                                        {
+                                            "name": "flda9ZRO7HD11uyrS",
+                                            "type": "text",
+                                            "label": "Source"
+                                        }
+                                    ],
+                                    "type": "collection",
+                                    "label": "Record"
+                                }
+                            ]
+                        },
+                        "typecast": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            },
+                            "label": "My Airtable Token or Key connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "spec": [
+                            {
+                                "name": "fldQqvaWd4V7usJ82",
+                                "type": "text",
+                                "label": "Employee Name"
+                            },
+                            {
+                                "name": "fldr6uFJNAhiN6eoE",
+                                "type": "text",
+                                "label": "Job title"
+                            },
+                            {
+                                "name": "fldTGaqfdpnHYv6eo",
+                                "type": "text",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "fldHRmrOalrd7xz8t",
+                                "type": "text",
+                                "label": "Email Status"
+                            },
+                            {
+                                "name": "fldG69SyKXX7yRt6Y",
+                                "type": "text",
+                                "label": "Contact Number"
+                            },
+                            {
+                                "name": "fldqmD4BEqxPGmXOt",
+                                "type": "text",
+                                "label": "Company Name"
+                            },
+                            {
+                                "name": "fld3fk0hI1CioYFRH",
+                                "type": "number",
+                                "label": "Company Size"
+                            },
+                            {
+                                "name": "fldnYelCaHtdV1Z6I",
+                                "type": "text",
+                                "label": "Industry"
+                            },
+                            {
+                                "name": "fldSReQ9stZEnOKkp",
+                                "type": "text",
+                                "label": "Country"
+                            },
+                            {
+                                "name": "fldzZB6lLnbI90Tew",
+                                "type": "text",
+                                "label": "Sales Representative"
+                            },
+                            {
+                                "name": "fldsqWahZnSBRUFJQ",
+                                "type": "number",
+                                "label": "Lead Score"
+                            },
+                            {
+                                "name": "fldkR68DWarM5bN55",
+                                "type": "text",
+                                "label": "Lead Status"
+                            },
+                            {
+                                "name": "flda9ZRO7HD11uyrS",
+                                "type": "text",
+                                "label": "Source"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Employee Name",
+                        "type": "text",
+                        "label": "Employee Name"
+                    },
+                    {
+                        "name": "Job title",
+                        "type": "text",
+                        "label": "Job title"
+                    },
+                    {
+                        "name": "Email",
+                        "type": "text",
+                        "label": "Email"
+                    },
+                    {
+                        "name": "Email Status",
+                        "type": "text",
+                        "label": "Email Status"
+                    },
+                    {
+                        "name": "Contact Number",
+                        "type": "text",
+                        "label": "Contact Number"
+                    },
+                    {
+                        "name": "Company Name",
+                        "type": "text",
+                        "label": "Company Name"
+                    },
+                    {
+                        "name": "Company Size",
+                        "type": "number",
+                        "label": "Company Size"
+                    },
+                    {
+                        "name": "Industry",
+                        "type": "text",
+                        "label": "Industry"
+                    },
+                    {
+                        "name": "Country",
+                        "type": "text",
+                        "label": "Country"
+                    },
+                    {
+                        "name": "Sales Representative",
+                        "type": "text",
+                        "label": "Sales Representative"
+                    },
+                    {
+                        "name": "Lead Score",
+                        "type": "number",
+                        "label": "Lead Score"
+                    },
+                    {
+                        "name": "Lead Status",
+                        "type": "text",
+                        "label": "Lead Status"
+                    },
+                    {
+                        "name": "Source",
+                        "type": "text",
+                        "label": "Source"
+                    },
+                    {
+                        "name": "Created Time",
+                        "type": "date",
+                        "label": "Created Time"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 22,
+            "module": "airtable:ActionUpdateRecords",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 5108787
+            },
+            "mapper": {
+                "id": "{{17.id}}",
+                "base": "app4FmWnz4cyFK1zZ",
+                "table": "tblBiTem1L6QO99OD",
+                "record": {
+                    "fldkR68DWarM5bN55": "{{if(16.data.data.score >= 70; \"\"\"Hot\"\"\"; if(16.data.data.score > 40; \"\"\"Warm\"\"\"; \"\"\"Cold\"\"\"))}}",
+                    "fldzZB6lLnbI90Tew": "{{if(contains(17.Industry; \"IT\") | contains(17.Industry; \"SaaS\") | contains(17.Industry; \"E-commerce\") | contains(17.Industry; \"Cyber\"); \"Maria\"; if(17.Country = \"India\"; \"Ankit\"; if(17.Country = \"United States\"; \"John\"; if(17.Country = \"United Kingdom\"; \"Putin\"; \"General Team\"))))}}"
+                },
+                "typecast": "{{false}}",
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": -2726,
+                    "y": -399
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "label": "Lead Information"
+                        },
+                        "table": {
+                            "label": "Lead_Data"
+                        },
+                        "typecast": {
+                            "mode": "edit"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            },
+                            "label": "My Airtable Token or Key connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "Record ID",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "spec": [
+                            {
+                                "name": "fldQqvaWd4V7usJ82",
+                                "type": "text",
+                                "label": "Employee Name"
+                            },
+                            {
+                                "name": "fldr6uFJNAhiN6eoE",
+                                "type": "text",
+                                "label": "Job title"
+                            },
+                            {
+                                "name": "fldTGaqfdpnHYv6eo",
+                                "type": "text",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "fldHRmrOalrd7xz8t",
+                                "type": "text",
+                                "label": "Email Status"
+                            },
+                            {
+                                "name": "fldG69SyKXX7yRt6Y",
+                                "type": "text",
+                                "label": "Contact Number"
+                            },
+                            {
+                                "name": "fldqmD4BEqxPGmXOt",
+                                "type": "text",
+                                "label": "Company Name"
+                            },
+                            {
+                                "name": "fld3fk0hI1CioYFRH",
+                                "type": "number",
+                                "label": "Company Size"
+                            },
+                            {
+                                "name": "fldnYelCaHtdV1Z6I",
+                                "type": "text",
+                                "label": "Industry"
+                            },
+                            {
+                                "name": "fldSReQ9stZEnOKkp",
+                                "type": "text",
+                                "label": "Country"
+                            },
+                            {
+                                "name": "fldzZB6lLnbI90Tew",
+                                "type": "text",
+                                "label": "Sales Representative"
+                            },
+                            {
+                                "name": "fldsqWahZnSBRUFJQ",
+                                "type": "number",
+                                "label": "Lead Score"
+                            },
+                            {
+                                "name": "fldkR68DWarM5bN55",
+                                "type": "text",
+                                "label": "Lead Status"
+                            },
+                            {
+                                "name": "flda9ZRO7HD11uyrS",
+                                "type": "text",
+                                "label": "Source"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Employee Name",
+                        "type": "text",
+                        "label": "Employee Name"
+                    },
+                    {
+                        "name": "Job title",
+                        "type": "text",
+                        "label": "Job title"
+                    },
+                    {
+                        "name": "Email",
+                        "type": "text",
+                        "label": "Email"
+                    },
+                    {
+                        "name": "Email Status",
+                        "type": "text",
+                        "label": "Email Status"
+                    },
+                    {
+                        "name": "Contact Number",
+                        "type": "text",
+                        "label": "Contact Number"
+                    },
+                    {
+                        "name": "Company Name",
+                        "type": "text",
+                        "label": "Company Name"
+                    },
+                    {
+                        "name": "Company Size",
+                        "type": "number",
+                        "label": "Company Size"
+                    },
+                    {
+                        "name": "Industry",
+                        "type": "text",
+                        "label": "Industry"
+                    },
+                    {
+                        "name": "Country",
+                        "type": "text",
+                        "label": "Country"
+                    },
+                    {
+                        "name": "Sales Representative",
+                        "type": "text",
+                        "label": "Sales Representative"
+                    },
+                    {
+                        "name": "Lead Score",
+                        "type": "number",
+                        "label": "Lead Score"
+                    },
+                    {
+                        "name": "Lead Status",
+                        "type": "text",
+                        "label": "Lead Status"
+                    },
+                    {
+                        "name": "Source",
+                        "type": "text",
+                        "label": "Source"
+                    },
+                    {
+                        "name": "Created Time",
+                        "type": "date",
+                        "label": "Created Time"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 18,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": -2808,
+                    "y": -990
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 54,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 5108787
+                            },
+                            "filter": {
+                                "name": "Hot",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{22.`Lead Score`}}",
+                                            "b": "70",
+                                            "o": "number:greaterorequal"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "id": "{{22.id}}",
+                                "base": "app4FmWnz4cyFK1zZ",
+                                "table": "tblBiTem1L6QO99OD",
+                                "record": {
+                                    "fldkR68DWarM5bN55": "\"Hot\""
+                                },
+                                "typecast": false,
+                                "useColumnId": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -2306,
+                                    "y": -1437
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "base": {
+                                            "label": "Lead Information"
+                                        },
+                                        "table": {
+                                            "label": "Lead_Data"
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable2"
+                                            },
+                                            "label": "My Airtable Token or Key connection"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use Column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "spec": [
+                                            {
+                                                "name": "fldQqvaWd4V7usJ82",
+                                                "type": "text",
+                                                "label": "Employee Name"
+                                            },
+                                            {
+                                                "name": "fldr6uFJNAhiN6eoE",
+                                                "type": "text",
+                                                "label": "Job title"
+                                            },
+                                            {
+                                                "name": "fldTGaqfdpnHYv6eo",
+                                                "type": "text",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "fldHRmrOalrd7xz8t",
+                                                "type": "text",
+                                                "label": "Email Status"
+                                            },
+                                            {
+                                                "name": "fldG69SyKXX7yRt6Y",
+                                                "type": "text",
+                                                "label": "Contact Number"
+                                            },
+                                            {
+                                                "name": "fldqmD4BEqxPGmXOt",
+                                                "type": "text",
+                                                "label": "Company Name"
+                                            },
+                                            {
+                                                "name": "fld3fk0hI1CioYFRH",
+                                                "type": "number",
+                                                "label": "Company Size"
+                                            },
+                                            {
+                                                "name": "fldnYelCaHtdV1Z6I",
+                                                "type": "text",
+                                                "label": "Industry"
+                                            },
+                                            {
+                                                "name": "fldSReQ9stZEnOKkp",
+                                                "type": "text",
+                                                "label": "Country"
+                                            },
+                                            {
+                                                "name": "fldzZB6lLnbI90Tew",
+                                                "type": "text",
+                                                "label": "Sales Representative"
+                                            },
+                                            {
+                                                "name": "fldsqWahZnSBRUFJQ",
+                                                "type": "number",
+                                                "label": "Lead Score"
+                                            },
+                                            {
+                                                "name": "fldkR68DWarM5bN55",
+                                                "type": "text",
+                                                "label": "Lead Status"
+                                            },
+                                            {
+                                                "name": "flda9ZRO7HD11uyrS",
+                                                "type": "text",
+                                                "label": "Source"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Record"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    },
+                                    {
+                                        "name": "Employee Name",
+                                        "type": "text",
+                                        "label": "Employee Name"
+                                    },
+                                    {
+                                        "name": "Job title",
+                                        "type": "text",
+                                        "label": "Job title"
+                                    },
+                                    {
+                                        "name": "Email",
+                                        "type": "text",
+                                        "label": "Email"
+                                    },
+                                    {
+                                        "name": "Email Status",
+                                        "type": "text",
+                                        "label": "Email Status"
+                                    },
+                                    {
+                                        "name": "Contact Number",
+                                        "type": "text",
+                                        "label": "Contact Number"
+                                    },
+                                    {
+                                        "name": "Company Name",
+                                        "type": "text",
+                                        "label": "Company Name"
+                                    },
+                                    {
+                                        "name": "Company Size",
+                                        "type": "number",
+                                        "label": "Company Size"
+                                    },
+                                    {
+                                        "name": "Industry",
+                                        "type": "text",
+                                        "label": "Industry"
+                                    },
+                                    {
+                                        "name": "Country",
+                                        "type": "text",
+                                        "label": "Country"
+                                    },
+                                    {
+                                        "name": "Sales Representative",
+                                        "type": "text",
+                                        "label": "Sales Representative"
+                                    },
+                                    {
+                                        "name": "Lead Score",
+                                        "type": "number",
+                                        "label": "Lead Score"
+                                    },
+                                    {
+                                        "name": "Lead Status",
+                                        "type": "text",
+                                        "label": "Lead Status"
+                                    },
+                                    {
+                                        "name": "Source",
+                                        "type": "text",
+                                        "label": "Source"
+                                    },
+                                    {
+                                        "name": "Created Time",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 19,
+                            "module": "google-email:sendAnEmail",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": 5110110
+                            },
+                            "mapper": {
+                                "to": [
+                                    "{{14.Email}}"
+                                ],
+                                "subject": "{{9.`Full Name`}}, let’s talk about growing {{9.`Company Name`}}",
+                                "bodyType": "collection",
+                                "contents": [
+                                    {
+                                        "text": "Hi {{17.`Employee Name`}},\r\n\r\nWe help {{17.`Company Name`}} teams get more qualified leads and close deals faster using automation.",
+                                        "image": {}
+                                    }
+                                ]
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -1682,
+                                    "y": -1480
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "cc": {
+                                            "mode": "chose"
+                                        },
+                                        "to": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "bcc": {
+                                            "mode": "chose"
+                                        },
+                                        "from": {
+                                            "mode": "chose"
+                                        },
+                                        "bodyType": {
+                                            "label": "Collection of contents (text, images, etc.)"
+                                        },
+                                        "contents": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "signature": {
+                                            "mode": "chose"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        },
+                                        "emailHeaders": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google-email"
+                                            },
+                                            "label": "My Gmail connection (sonal.aimaven@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google-email",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "to",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true,
+                                            "validate": true
+                                        },
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject"
+                                    },
+                                    {
+                                        "name": "bodyType",
+                                        "type": "select",
+                                        "label": "Body type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "rawHtml",
+                                                "collection"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "filename",
+                                                    "type": "filename",
+                                                    "label": "File name",
+                                                    "required": true,
+                                                    "semantic": "file:name"
+                                                },
+                                                {
+                                                    "name": "data",
+                                                    "type": "buffer",
+                                                    "label": "Data",
+                                                    "required": true,
+                                                    "semantic": "file:data"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Attachment"
+                                        },
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "cc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "CC recipients"
+                                    },
+                                    {
+                                        "name": "bcc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "BCC recipients"
+                                    },
+                                    {
+                                        "name": "emailHeaders",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "key",
+                                                    "type": "text",
+                                                    "label": "Key",
+                                                    "required": true
+                                                },
+                                                {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Value"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Email header"
+                                        },
+                                        "type": "array",
+                                        "label": "Additional email headers"
+                                    },
+                                    {
+                                        "name": "contents",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "text",
+                                                    "type": "text",
+                                                    "label": "Text"
+                                                },
+                                                {
+                                                    "name": "image",
+                                                    "spec": [
+                                                        {
+                                                            "name": "filename",
+                                                            "type": "filename",
+                                                            "label": "File name",
+                                                            "semantic": "file:name"
+                                                        },
+                                                        {
+                                                            "name": "data",
+                                                            "type": "buffer",
+                                                            "label": "Data",
+                                                            "semantic": "file:data"
+                                                        },
+                                                        {
+                                                            "name": "width",
+                                                            "type": "uinteger",
+                                                            "label": "Width"
+                                                        },
+                                                        {
+                                                            "name": "height",
+                                                            "type": "uinteger",
+                                                            "label": "Height"
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Image"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Content"
+                                        },
+                                        "type": "array",
+                                        "label": "Body contents"
+                                    },
+                                    {
+                                        "name": "signature",
+                                        "type": "select",
+                                        "label": "Signature content"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 55,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 5108787
+                            },
+                            "filter": {
+                                "name": "Warm",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{22.`Lead Score`}}",
+                                            "b": "69",
+                                            "o": "number:lessorequal"
+                                        },
+                                        {
+                                            "a": "{{22.`Lead Score`}}",
+                                            "b": "40",
+                                            "o": "number:greater"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "id": "{{22.id}}",
+                                "base": "app4FmWnz4cyFK1zZ",
+                                "table": "tblBiTem1L6QO99OD",
+                                "record": {
+                                    "fldkR68DWarM5bN55": "\"Warm\""
+                                },
+                                "typecast": false,
+                                "useColumnId": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -2271,
+                                    "y": -1056
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "base": {
+                                            "label": "Lead Information"
+                                        },
+                                        "table": {
+                                            "label": "Lead_Data"
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable2"
+                                            },
+                                            "label": "My Airtable Token or Key connection"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use Column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "spec": [
+                                            {
+                                                "name": "fldQqvaWd4V7usJ82",
+                                                "type": "text",
+                                                "label": "Employee Name"
+                                            },
+                                            {
+                                                "name": "fldr6uFJNAhiN6eoE",
+                                                "type": "text",
+                                                "label": "Job title"
+                                            },
+                                            {
+                                                "name": "fldTGaqfdpnHYv6eo",
+                                                "type": "text",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "fldHRmrOalrd7xz8t",
+                                                "type": "text",
+                                                "label": "Email Status"
+                                            },
+                                            {
+                                                "name": "fldG69SyKXX7yRt6Y",
+                                                "type": "text",
+                                                "label": "Contact Number"
+                                            },
+                                            {
+                                                "name": "fldqmD4BEqxPGmXOt",
+                                                "type": "text",
+                                                "label": "Company Name"
+                                            },
+                                            {
+                                                "name": "fld3fk0hI1CioYFRH",
+                                                "type": "number",
+                                                "label": "Company Size"
+                                            },
+                                            {
+                                                "name": "fldnYelCaHtdV1Z6I",
+                                                "type": "text",
+                                                "label": "Industry"
+                                            },
+                                            {
+                                                "name": "fldSReQ9stZEnOKkp",
+                                                "type": "text",
+                                                "label": "Country"
+                                            },
+                                            {
+                                                "name": "fldzZB6lLnbI90Tew",
+                                                "type": "text",
+                                                "label": "Sales Representative"
+                                            },
+                                            {
+                                                "name": "fldsqWahZnSBRUFJQ",
+                                                "type": "number",
+                                                "label": "Lead Score"
+                                            },
+                                            {
+                                                "name": "fldkR68DWarM5bN55",
+                                                "type": "text",
+                                                "label": "Lead Status"
+                                            },
+                                            {
+                                                "name": "flda9ZRO7HD11uyrS",
+                                                "type": "text",
+                                                "label": "Source"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Record"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    },
+                                    {
+                                        "name": "Employee Name",
+                                        "type": "text",
+                                        "label": "Employee Name"
+                                    },
+                                    {
+                                        "name": "Job title",
+                                        "type": "text",
+                                        "label": "Job title"
+                                    },
+                                    {
+                                        "name": "Email",
+                                        "type": "text",
+                                        "label": "Email"
+                                    },
+                                    {
+                                        "name": "Email Status",
+                                        "type": "text",
+                                        "label": "Email Status"
+                                    },
+                                    {
+                                        "name": "Contact Number",
+                                        "type": "text",
+                                        "label": "Contact Number"
+                                    },
+                                    {
+                                        "name": "Company Name",
+                                        "type": "text",
+                                        "label": "Company Name"
+                                    },
+                                    {
+                                        "name": "Company Size",
+                                        "type": "number",
+                                        "label": "Company Size"
+                                    },
+                                    {
+                                        "name": "Industry",
+                                        "type": "text",
+                                        "label": "Industry"
+                                    },
+                                    {
+                                        "name": "Country",
+                                        "type": "text",
+                                        "label": "Country"
+                                    },
+                                    {
+                                        "name": "Sales Representative",
+                                        "type": "text",
+                                        "label": "Sales Representative"
+                                    },
+                                    {
+                                        "name": "Lead Score",
+                                        "type": "number",
+                                        "label": "Lead Score"
+                                    },
+                                    {
+                                        "name": "Lead Status",
+                                        "type": "text",
+                                        "label": "Lead Status"
+                                    },
+                                    {
+                                        "name": "Source",
+                                        "type": "text",
+                                        "label": "Source"
+                                    },
+                                    {
+                                        "name": "Created Time",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 20,
+                            "module": "google-email:sendAnEmail",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": 5110110
+                            },
+                            "mapper": {
+                                "to": [
+                                    "{{17.Email}}"
+                                ],
+                                "subject": "How {{17.`Company Name`}} can get more leads\r\n",
+                                "bodyType": "collection",
+                                "contents": [
+                                    {
+                                        "text": "Hi {{17.`Employee Name`}},\r\n\r\nWe work with companies in {{17.Industry}} to automate lead capture and follow-ups.\r\n\r\nLet me know if you’d like to learn more.",
+                                        "image": {}
+                                    }
+                                ]
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -1630,
+                                    "y": -1035
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "cc": {
+                                            "mode": "chose"
+                                        },
+                                        "to": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "bcc": {
+                                            "mode": "chose"
+                                        },
+                                        "from": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "bodyType": {
+                                            "label": "Collection of contents (text, images, etc.)"
+                                        },
+                                        "contents": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "signature": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        },
+                                        "emailHeaders": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google-email"
+                                            },
+                                            "label": "My Gmail connection (sonal.aimaven@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google-email",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "to",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true,
+                                            "validate": true
+                                        },
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject"
+                                    },
+                                    {
+                                        "name": "bodyType",
+                                        "type": "select",
+                                        "label": "Body type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "rawHtml",
+                                                "collection"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "filename",
+                                                    "type": "filename",
+                                                    "label": "File name",
+                                                    "required": true,
+                                                    "semantic": "file:name"
+                                                },
+                                                {
+                                                    "name": "data",
+                                                    "type": "buffer",
+                                                    "label": "Data",
+                                                    "required": true,
+                                                    "semantic": "file:data"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Attachment"
+                                        },
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "cc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "CC recipients"
+                                    },
+                                    {
+                                        "name": "bcc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "BCC recipients"
+                                    },
+                                    {
+                                        "name": "emailHeaders",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "key",
+                                                    "type": "text",
+                                                    "label": "Key",
+                                                    "required": true
+                                                },
+                                                {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Value"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Email header"
+                                        },
+                                        "type": "array",
+                                        "label": "Additional email headers"
+                                    },
+                                    {
+                                        "name": "contents",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "text",
+                                                    "type": "text",
+                                                    "label": "Text"
+                                                },
+                                                {
+                                                    "name": "image",
+                                                    "spec": [
+                                                        {
+                                                            "name": "filename",
+                                                            "type": "filename",
+                                                            "label": "File name",
+                                                            "semantic": "file:name"
+                                                        },
+                                                        {
+                                                            "name": "data",
+                                                            "type": "buffer",
+                                                            "label": "Data",
+                                                            "semantic": "file:data"
+                                                        },
+                                                        {
+                                                            "name": "width",
+                                                            "type": "uinteger",
+                                                            "label": "Width"
+                                                        },
+                                                        {
+                                                            "name": "height",
+                                                            "type": "uinteger",
+                                                            "label": "Height"
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Image"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Content"
+                                        },
+                                        "type": "array",
+                                        "label": "Body contents"
+                                    },
+                                    {
+                                        "name": "signature",
+                                        "type": "select",
+                                        "label": "Signature content"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 56,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 5108787
+                            },
+                            "filter": {
+                                "name": "Cold",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{22.`Lead Score`}}",
+                                            "b": "40",
+                                            "o": "number:lessorequal"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "id": "{{22.id}}",
+                                "base": "app4FmWnz4cyFK1zZ",
+                                "table": "tblBiTem1L6QO99OD",
+                                "record": {
+                                    "fldkR68DWarM5bN55": "\"Cold\""
+                                },
+                                "typecast": false,
+                                "useColumnId": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -2239,
+                                    "y": -662
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "base": {
+                                            "label": "Lead Information"
+                                        },
+                                        "table": {
+                                            "label": "Lead_Data"
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable2"
+                                            },
+                                            "label": "My Airtable Token or Key connection"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use Column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "spec": [
+                                            {
+                                                "name": "fldQqvaWd4V7usJ82",
+                                                "type": "text",
+                                                "label": "Employee Name"
+                                            },
+                                            {
+                                                "name": "fldr6uFJNAhiN6eoE",
+                                                "type": "text",
+                                                "label": "Job title"
+                                            },
+                                            {
+                                                "name": "fldTGaqfdpnHYv6eo",
+                                                "type": "text",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "fldHRmrOalrd7xz8t",
+                                                "type": "text",
+                                                "label": "Email Status"
+                                            },
+                                            {
+                                                "name": "fldG69SyKXX7yRt6Y",
+                                                "type": "text",
+                                                "label": "Contact Number"
+                                            },
+                                            {
+                                                "name": "fldqmD4BEqxPGmXOt",
+                                                "type": "text",
+                                                "label": "Company Name"
+                                            },
+                                            {
+                                                "name": "fld3fk0hI1CioYFRH",
+                                                "type": "number",
+                                                "label": "Company Size"
+                                            },
+                                            {
+                                                "name": "fldnYelCaHtdV1Z6I",
+                                                "type": "text",
+                                                "label": "Industry"
+                                            },
+                                            {
+                                                "name": "fldSReQ9stZEnOKkp",
+                                                "type": "text",
+                                                "label": "Country"
+                                            },
+                                            {
+                                                "name": "fldzZB6lLnbI90Tew",
+                                                "type": "text",
+                                                "label": "Sales Representative"
+                                            },
+                                            {
+                                                "name": "fldsqWahZnSBRUFJQ",
+                                                "type": "number",
+                                                "label": "Lead Score"
+                                            },
+                                            {
+                                                "name": "fldkR68DWarM5bN55",
+                                                "type": "text",
+                                                "label": "Lead Status"
+                                            },
+                                            {
+                                                "name": "flda9ZRO7HD11uyrS",
+                                                "type": "text",
+                                                "label": "Source"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Record"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    },
+                                    {
+                                        "name": "Employee Name",
+                                        "type": "text",
+                                        "label": "Employee Name"
+                                    },
+                                    {
+                                        "name": "Job title",
+                                        "type": "text",
+                                        "label": "Job title"
+                                    },
+                                    {
+                                        "name": "Email",
+                                        "type": "text",
+                                        "label": "Email"
+                                    },
+                                    {
+                                        "name": "Email Status",
+                                        "type": "text",
+                                        "label": "Email Status"
+                                    },
+                                    {
+                                        "name": "Contact Number",
+                                        "type": "text",
+                                        "label": "Contact Number"
+                                    },
+                                    {
+                                        "name": "Company Name",
+                                        "type": "text",
+                                        "label": "Company Name"
+                                    },
+                                    {
+                                        "name": "Company Size",
+                                        "type": "number",
+                                        "label": "Company Size"
+                                    },
+                                    {
+                                        "name": "Industry",
+                                        "type": "text",
+                                        "label": "Industry"
+                                    },
+                                    {
+                                        "name": "Country",
+                                        "type": "text",
+                                        "label": "Country"
+                                    },
+                                    {
+                                        "name": "Sales Representative",
+                                        "type": "text",
+                                        "label": "Sales Representative"
+                                    },
+                                    {
+                                        "name": "Lead Score",
+                                        "type": "number",
+                                        "label": "Lead Score"
+                                    },
+                                    {
+                                        "name": "Lead Status",
+                                        "type": "text",
+                                        "label": "Lead Status"
+                                    },
+                                    {
+                                        "name": "Source",
+                                        "type": "text",
+                                        "label": "Source"
+                                    },
+                                    {
+                                        "name": "Created Time",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 21,
+                            "module": "google-email:sendAnEmail",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": 5110110
+                            },
+                            "mapper": {
+                                "to": [
+                                    "{{17.Email}}"
+                                ],
+                                "subject": "Thanks for connecting, {{17.`Employee Name`}}",
+                                "bodyType": "collection",
+                                "contents": [
+                                    {
+                                        "text": "Hi {{17.`Employee Name`}},\r\n\r\nThanks for your interest. We help businesses like {{17.`Company Name`}} manage leads more efficiently.\r\n\r\nWe’ll be in touch with useful tips.",
+                                        "image": {}
+                                    }
+                                ]
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -1559,
+                                    "y": -650
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "cc": {
+                                            "mode": "chose"
+                                        },
+                                        "to": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "bcc": {
+                                            "mode": "chose"
+                                        },
+                                        "from": {
+                                            "mode": "chose"
+                                        },
+                                        "bodyType": {
+                                            "label": "Collection of contents (text, images, etc.)"
+                                        },
+                                        "contents": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "signature": {
+                                            "mode": "chose"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        },
+                                        "emailHeaders": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google-email"
+                                            },
+                                            "label": "My Gmail connection (sonal.aimaven@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google-email",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "to",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true,
+                                            "validate": true
+                                        },
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject"
+                                    },
+                                    {
+                                        "name": "bodyType",
+                                        "type": "select",
+                                        "label": "Body type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "rawHtml",
+                                                "collection"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "filename",
+                                                    "type": "filename",
+                                                    "label": "File name",
+                                                    "required": true,
+                                                    "semantic": "file:name"
+                                                },
+                                                {
+                                                    "name": "data",
+                                                    "type": "buffer",
+                                                    "label": "Data",
+                                                    "required": true,
+                                                    "semantic": "file:data"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Attachment"
+                                        },
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "cc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "CC recipients"
+                                    },
+                                    {
+                                        "name": "bcc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "BCC recipients"
+                                    },
+                                    {
+                                        "name": "emailHeaders",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "key",
+                                                    "type": "text",
+                                                    "label": "Key",
+                                                    "required": true
+                                                },
+                                                {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Value"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Email header"
+                                        },
+                                        "type": "array",
+                                        "label": "Additional email headers"
+                                    },
+                                    {
+                                        "name": "contents",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "text",
+                                                    "type": "text",
+                                                    "label": "Text"
+                                                },
+                                                {
+                                                    "name": "image",
+                                                    "spec": [
+                                                        {
+                                                            "name": "filename",
+                                                            "type": "filename",
+                                                            "label": "File name",
+                                                            "semantic": "file:name"
+                                                        },
+                                                        {
+                                                            "name": "data",
+                                                            "type": "buffer",
+                                                            "label": "Data",
+                                                            "semantic": "file:data"
+                                                        },
+                                                        {
+                                                            "name": "width",
+                                                            "type": "uinteger",
+                                                            "label": "Width"
+                                                        },
+                                                        {
+                                                            "name": "height",
+                                                            "type": "uinteger",
+                                                            "label": "Height"
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Image"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Content"
+                                        },
+                                        "type": "array",
+                                        "label": "Body contents"
+                                    },
+                                    {
+                                        "name": "signature",
+                                        "type": "select",
+                                        "label": "Signature content"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.make.com",
+        "notes": []
+    }
+}
