@@ -3,9 +3,9 @@
 This scenario automates lead enrichment and management by integrating email verification, person and company enrichment, and lead source tracking.
 
 **Requirements:**
-Make.com Account
-Create API of Hunter io
-connect the airtable,google sheet, typeform, Linked Lead Form modules with your account.
+1. Make.com Account
+2. Create API of Hunter io
+3. connect the airtable,google sheet, typeform, Linked Lead Form modules with your account.
 
 **Importing the Scenario:**
 Download Json file.
