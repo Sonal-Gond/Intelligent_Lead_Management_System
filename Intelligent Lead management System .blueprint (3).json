@@ -50,7 +50,7 @@
                 "authenticationType": "noAuth"
             },
             "mapper": {
-                "url": "https://api.hunter.io/v2/email-verifier?email={{9.Email}}&api_key=d12de966f3eb2eb32ede7d96e5700918c4a66eb4",
+                "url": "https://api.hunter.io/v2/email-verifier?email={{9.Email}}&api_key=dxxxxxxxxxxxxxxxxxxxxxxxxxx4",
                 "method": "get",
                 "shareCookies": false,
                 "parseResponse": true,
