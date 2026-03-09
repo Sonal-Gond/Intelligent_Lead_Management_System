@@ -50,7 +50,7 @@
                 "authenticationType": "noAuth"
             },
             "mapper": {
-                "url": "https://hook.eu1.make.com/15ndo23qoeddgj6tt94w5yns6ds22ei6",
+                "url": "https://hook.eu1.make.com/15xxxxxxxxxxxxxxxxxxxxx6",
                 "method": "post",
                 "contentType": "json",
                 "inputMethod": "jsonString",
