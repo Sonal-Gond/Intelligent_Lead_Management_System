@@ -11,7 +11,7 @@
                 "limit": 120,
                 "sheetId": "Form Responses 1",
                 "__IMTCONN__": 5072598,
-                "spreadsheetId": "/1uND1qA8NY70i0ehytk_4lVdTmP9c3JXqyZO43SkXEb4",
+                "spreadsheetId": "/1uxxxxxxxxxxxxxxxxxxxxx4",
                 "tableFirstRow": "A1:Z1",
                 "includesHeaders": true,
                 "valueRenderOption": "FORMATTED_VALUE",
@@ -39,7 +39,7 @@
                                 "scoped": "true",
                                 "connection": "google"
                             },
-                            "label": "My Google connection (sonal.aimaven@gmail.com)"
+                            "label": "My Google connection (email@gmail.com)"
                         },
                         "spreadsheetId": {
                             "path": [
@@ -311,7 +311,7 @@
                 "authenticationType": "noAuth"
             },
             "mapper": {
-                "url": "https://hook.eu1.make.com/15ndo23qoeddgj6tt94w5yns6ds22ei6",
+                "url": "https://hook.eu1.make.com/15xxxxxxxxxxxxxx6",
                 "method": "post",
                 "contentType": "json",
                 "inputMethod": "jsonString",
