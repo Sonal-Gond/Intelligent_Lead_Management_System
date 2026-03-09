@@ -703,7 +703,7 @@
                                                 "scoped": "true",
                                                 "connection": "slack2"
                                             },
-                                            "label": "My Slack (user) connection (aiautomation-ah83377.slack.com - sonal.aimaven)"
+                                            "label": "My Slack (user) connection (workspace-xxxxxx.slack.com - xxxxx.xxxxxx)"
                                         }
                                     }
                                 },
@@ -922,7 +922,7 @@
                                 "text": "Warm leads : {{16.warm_leads}}",
                                 "parse": false,
                                 "mrkdwn": true,
-                                "channel": "C0ABH3V5PV2",
+                                "channel": "Cxxxxxxxx2",
                                 "channelType": "public",
                                 "channelWType": "list"
                             },
@@ -968,7 +968,7 @@
                                                 "scoped": "true",
                                                 "connection": "slack2"
                                             },
-                                            "label": "My Slack (user) connection (aiautomation-ah83377.slack.com - sonal.aimaven)"
+                                            "label": "My Slack (user) connection (workspace-xxxxxx.slack.com - xxxx.xxxxx)"
                                         }
                                     }
                                 },
@@ -1233,7 +1233,7 @@
                                                 "scoped": "true",
                                                 "connection": "slack2"
                                             },
-                                            "label": "My Slack (user) connection (aiautomation-ah83377.slack.com - sonal.aimaven)"
+                                            "label": "My Slack (user) connection (workspace-xxxxxx.slack.com - xxxx.xxxxx)"
                                         }
                                     }
                                 },
