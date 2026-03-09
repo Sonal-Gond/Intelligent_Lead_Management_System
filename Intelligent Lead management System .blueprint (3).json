@@ -344,7 +344,7 @@
                 "authenticationType": "noAuth"
             },
             "mapper": {
-                "url": "https://api.hunter.io/v2/combined/find?email={{16.data.data.email}}&api_key=d12de966f3eb2eb32ede7d96e5700918c4a66eb4",
+                "url": "https://api.hunter.io/v2/combined/find?email={{16.data.data.email}}&api_key=dxxxxxxxxxxxxxxxxxxxxxxxxxxx4",
                 "method": "get",
                 "shareCookies": false,
                 "parseResponse": true,
@@ -1312,10 +1312,10 @@
                 "__IMTCONN__": 5108787
             },
             "mapper": {
-                "base": "app4FmWnz4cyFK1zZ",
+                "base": "axxxxxxZ",
                 "typecast": "{{false}}",
                 "useColumnId": false,
-                "table": "tblBiTem1L6QO99OD",
+                "table": "tbxxxxxD",
                 "id": "{{17.id}}",
                 "record": {
                     "fldzZB6lLnbI90Tew": "{{if(contains(17.Industry; \"IT\") | contains(17.Industry; \"SaaS\") | contains(17.Industry; \"E-commerce\") | contains(17.Industry; \"Cyber\"); \"Maria\"; if(17.Country = \"India\"; \"Ankit\"; if(17.Country = \"United States\"; \"John\"; if(17.Country = \"United Kingdom\"; \"Putin\"; \"General Team\"))))}}",
@@ -1641,7 +1641,7 @@
                                                 "scoped": "true",
                                                 "connection": "google-email"
                                             },
-                                            "label": "My Gmail connection (sonal.aimaven@gmail.com)"
+                                            "label": "My Gmail connection (email@gmail.com)"
                                         }
                                     }
                                 },
@@ -1904,7 +1904,7 @@
                                                 "scoped": "true",
                                                 "connection": "google-email"
                                             },
-                                            "label": "My Gmail connection (sonal.aimaven@gmail.com)"
+                                            "label": "My Gmail connection (email@gmail.com)"
                                         }
                                     }
                                 },
@@ -2160,7 +2160,7 @@
                                                 "scoped": "true",
                                                 "connection": "google-email"
                                             },
-                                            "label": "My Gmail connection (sonal.aimaven@gmail.com)"
+                                            "label": "My Gmail connection (email@gmail.com)"
                                         }
                                     }
                                 },
