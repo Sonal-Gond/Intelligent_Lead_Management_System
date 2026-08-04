@@ -351,7 +351,7 @@
                 "text": "📊 Daily Lead Summary – {{formatDate(now; \"DD MMM\")}}\r\n\nTotal leads: {{19.Total_leads}}",
                 "parse": false,
                 "mrkdwn": true,
-                "channel": "C0ABH3V5PV2",
+                "channel": "YOUR_SLACK_CHANNEL_ID",
                 "channelType": "public",
                 "channelWType": "list"
             },
@@ -397,7 +397,7 @@
                                 "scoped": "true",
                                 "connection": "slack2"
                             },
-                            "label": "My Slack (user) connection (aiautomation-ah83377.slack.com - sonal.aimaven)"
+                            "label": "YOUR_SLACK_CONNECTION"
                         }
                     }
                 },
@@ -657,7 +657,7 @@
                                 "text": "Hot leads: {{15.Hot_leads}}",
                                 "parse": false,
                                 "mrkdwn": true,
-                                "channel": "C0ABH3V5PV2",
+                                "channel": "YOUR_SLACK_CHANNEL_ID",
                                 "channelType": "public",
                                 "channelWType": "list"
                             },
@@ -703,7 +703,7 @@
                                                 "scoped": "true",
                                                 "connection": "slack2"
                                             },
-                                            "label": "My Slack (user) connection (workspace-xxxxxx.slack.com - xxxxx.xxxxxx)"
+                                            "label": "YOUR SLACK CONNECTION"
                                         }
                                     }
                                 },
@@ -968,7 +968,7 @@
                                                 "scoped": "true",
                                                 "connection": "slack2"
                                             },
-                                            "label": "My Slack (user) connection (workspace-xxxxxx.slack.com - xxxx.xxxxx)"
+                                            "label": "YOUR_SALCK_CONNECTION"
                                         }
                                     }
                                 },
@@ -1187,7 +1187,7 @@
                                 "text": "Cold leads:{{17.cold_leads}}",
                                 "parse": false,
                                 "mrkdwn": true,
-                                "channel": "C0ABH3V5PV2",
+                                "channel": "YOUR_SLACK_CHANNEL_ID",
                                 "channelType": "public",
                                 "channelWType": "list"
                             },
@@ -1233,7 +1233,7 @@
                                                 "scoped": "true",
                                                 "connection": "slack2"
                                             },
-                                            "label": "My Slack (user) connection (workspace-xxxxxx.slack.com - xxxx.xxxxx)"
+                                            "label": "YOUR_SLACK_CONNECTION"
                                         }
                                     }
                                 },
