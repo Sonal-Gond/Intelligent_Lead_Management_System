@@ -311,7 +311,7 @@
                 "authenticationType": "noAuth"
             },
             "mapper": {
-                "url": "https://hook.eu1.make.com/15xxxxxxxxxxxxxx6",
+                "url": "Lead_qualification_workflow_webhook_url",
                 "method": "post",
                 "contentType": "json",
                 "inputMethod": "jsonString",
