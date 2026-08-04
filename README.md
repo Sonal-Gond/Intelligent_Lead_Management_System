@@ -22,7 +22,7 @@ This scenario automates lead enrichment and management by integrating email veri
 
 2. Configure webhooks :
 - For modules triggered by forms or other services, copy the webhook URL from the main scenario (Intelligent lead management system).
-- Paste it in the source service (e.g., Typeform form settings, website form, LinkedIn automation).
+- Replace 'Lead_qualification_workflow_webhook_url' with the webhook url in source workflows (e.g., Typeform form settings, website form, LinkedIn automation).
 3. Scheduler:
 - for daily report scenario add a scheduler for timing on which you want to send daily summary.
 
