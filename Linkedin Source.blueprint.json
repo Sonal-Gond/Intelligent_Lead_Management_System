@@ -6,7 +6,7 @@
             "module": "linkedin-lead-forms:watchFormResponses",
             "version": 1,
             "parameters": {
-                "urn": "urn:li:sponsoredAccount:518816874",
+                "urn": "urn:li:sponsoredAccount:xxxxxxxxx",
                 "limit": 50,
                 "owner": "sponsoredAccount",
                 "creative": "",
@@ -28,7 +28,7 @@
                                 "scoped": "true",
                                 "connection": "linkedin-openid"
                             },
-                            "label": "Lead Linkedin (Sonal Gond)"
+                            "label": "Lead Linkedin"
                         }
                     }
                 },
@@ -86,7 +86,7 @@
                 "authenticationType": "noAuth"
             },
             "mapper": {
-                "url": "https://hook.eu1.make.com/15xxxxxxxxxxxxx6",
+                "url": "Lead_qualification_workflow_webhook_url",
                 "method": "post",
                 "contentType": "json",
                 "inputMethod": "jsonString",
