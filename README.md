@@ -19,6 +19,7 @@ This scenario automates lead enrichment and management by integrating email veri
 1. Connect your accounts:
 - Go through each module (HTTP, Airtable, Google Sheets, etc.) and connect your respective accounts.
 - Add API keys for email verification, Clearbit/Hunter, or other enrichment services.
+- Replace YOUR_Hunter_API_KEY with your actual Hunter.io API Key 
 
 2. Configure webhooks :
 - For modules triggered by forms or other services, copy the webhook URL from the main scenario (Intelligent lead management system).
