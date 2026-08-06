@@ -50,7 +50,7 @@
                 "authenticationType": "noAuth"
             },
             "mapper": {
-                "url": "https://api.hunter.io/v2/email-verifier?email={{9.Email}}&api_key=dxxxxxxxxxxxxxxxxxxxxxxxxxx4",
+                "url": "https://api.hunter.io/v2/email-verifier?email={{9.Email}}&api_key=YOUR_Hunter_API_KEY",
                 "method": "get",
                 "shareCookies": false,
                 "parseResponse": true,
@@ -344,7 +344,7 @@
                 "authenticationType": "noAuth"
             },
             "mapper": {
-                "url": "https://api.hunter.io/v2/combined/find?email={{16.data.data.email}}&api_key=dxxxxxxxxxxxxxxxxxxxxxxxxxxx4",
+                "url": "https://api.hunter.io/v2/combined/find?email={{16.data.data.email}}&api_key=YOUR_Hunter_API_KEY",
                 "method": "get",
                 "shareCookies": false,
                 "parseResponse": true,
